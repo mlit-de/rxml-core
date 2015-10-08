@@ -1,0 +1,8 @@
+<java version="1.4.0" class="java.beans.XMLDecoder">
+    <void id="context" property="owner"/>
+    <object class="de.mlit.rxml.api.helper.ResourceAdapter" method="convert">
+        <object class="de.mlit.rxml.base.ClasspathResource">
+            <string>de/mlit/rxml/base/a.xml</string>
+        </object>
+    </object>
+</java>
