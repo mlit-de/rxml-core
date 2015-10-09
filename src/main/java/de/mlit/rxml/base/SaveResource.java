@@ -40,6 +40,7 @@ public class SaveResource extends AbstractStreamResource {
         }
         File file = new File(dir, filename);
         checkParent(file, dir);
+        file.getParentFile().mkdirs();
 
         FileOutputStream fos = new FileOutputStream(file);
         byte[] result = baos.toByteArray();
