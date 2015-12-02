@@ -3,7 +3,7 @@ package de.mlit.rxml.api.helper;
 import de.mlit.rxml.api.StreamResource;
 
 import java.io.*;
-import java.util.Base64;
+
 
 /**
  * Created by mlauer on 03/03/15.
@@ -25,14 +25,6 @@ public abstract class AbstractStreamResource extends AbstractResource implements
     }
 
 
-    protected InputStream bufferAndReadOutputStream() throws IOException {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        OutputStream os2 = Base64.getMimeEncoder().wrap(os);
-        this.writeOn(os2);
-        os2.flush();
-        os2.close();
-        return new ByteArrayInputStream(os.toByteArray());
-    }
 
     @Override
     public InputStream openStream() throws IOException {
