@@ -1,6 +1,7 @@
 package de.mlit.rxml.api.helper;
 
 import de.mlit.rxml.api.*;
+import de.mlit.rxml.resolver.RxmlResolver;
 import org.xml.sax.EntityResolver;
 
 import java.util.Map;
@@ -85,5 +86,9 @@ public class ResourceAdapter {
 
     public static ResourceFactory getInput(Map map, String name) {
         return (ResourceFactory) map.get(name);
+    }
+
+    public static RxmlResolver getResolver(Map map) {
+        return (RxmlResolver)map.get("#resolver");
     }
 }
