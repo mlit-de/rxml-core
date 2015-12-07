@@ -78,7 +78,7 @@ public class SerializedXml extends AbstractStreamResource {
         tf.setOutputProperty(OutputKeys.INDENT, (indent >=0) ? "yes" : "no");
         if(indent >=0 ) {
             tf.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", indent+"");
-            tf.setOutputProperty("{http://saxon.sf.net/}indent-spaces", indent+"");
+            //tf.setOutputProperty("{http://saxon.sf.net/}indent-spaces", indent+"");
         }
         tf.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, omitXmlDeclaration ? "yes" : "no");
         if(doctypePublic != null) {
