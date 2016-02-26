@@ -118,7 +118,7 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
             XsltExecutable compile = xsltCompiler.compile(new RxmlSAXSource(this.resolver, new RxmlInputSource(ResourceAdapter.convert(stylesheet))));
             templ = new TemplatesImpl(compile);
         } catch (SaxonApiException ex) {
-            throw new RuntimeException(String.join(" ", errors), ex);
+            throw new RuntimeException(join(" ", errors), ex);
         }
 
 
@@ -147,6 +147,16 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
         trh.setResult(sr);
         document.runOn(trh);
 
+    }
+
+    private String join(String s, List<String> errors) {
+        StringBuilder sb = new StringBuilder();
+        String sep="";
+        for(String e : errors) {
+            sb.append(sep); sep=s;
+            sb.append(e);
+        }
+        return sb.toString();
     }
 }
 
