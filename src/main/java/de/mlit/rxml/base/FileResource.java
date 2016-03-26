@@ -15,6 +15,10 @@ public class FileResource extends AbstractStreamResource {
 
     protected File file;
 
+    public File getFile() {
+        return file;
+    }
+
     public FileResource(File file) {
         this.file = file;
     }
