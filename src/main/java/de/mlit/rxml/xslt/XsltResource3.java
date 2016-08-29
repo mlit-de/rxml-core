@@ -1,6 +1,7 @@
 package de.mlit.rxml.xslt;
 
 
+import de.mlit.rxml.api.ResourceFactory;
 import de.mlit.rxml.api.SaxResource;
 import de.mlit.rxml.api.helper.AbstractResource;
 import de.mlit.rxml.api.helper.ResourceAdapter;
@@ -8,9 +9,14 @@ import de.mlit.rxml.resolver.RxmlInputSource;
 import de.mlit.rxml.resolver.RxmlResolver;
 import de.mlit.rxml.resolver.RxmlSAXSource;
 import net.sf.saxon.Configuration;
+import net.sf.saxon.Controller;
+import net.sf.saxon.event.Builder;
+import net.sf.saxon.event.PipelineConfiguration;
+import net.sf.saxon.event.ReceivingContentHandler;
 import net.sf.saxon.jaxp.TemplatesImpl;
 import net.sf.saxon.jaxp.TransformerImpl;
 import net.sf.saxon.lib.FeatureKeys;
+import net.sf.saxon.om.NodeInfo;
 import net.sf.saxon.s9api.*;
 import net.sf.saxon.trans.XPathException;
 import org.xml.sax.ContentHandler;
@@ -54,6 +60,7 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
         this.document = document;
         this.map = map;
         this.mode = mode;
+
 
         Configuration configuration = getConfiguration(extensions);
         if (resolver != null) {
@@ -134,9 +141,14 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
         } catch (TransformerConfigurationException e1) {
             throw new SAXException(e1);
         }
+        TransformerImpl transformer = (TransformerImpl)trh.getTransformer();
         if (map != null) {
             for (Map.Entry<String, Object> kv : map.entrySet()) {
-                trh.getTransformer().setParameter(kv.getKey(), kv.getValue());
+                Object value = kv.getValue();
+                if(value instanceof ResourceFactory)  {
+                    value = toDocument(transformer, (ResourceFactory)value);
+                }
+                transformer.setParameter(kv.getKey(), value);
             }
         }
 
@@ -147,6 +159,28 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
         trh.setResult(sr);
         document.runOn(trh);
 
+    }
+
+    protected NodeInfo toDocument(TransformerImpl transformer, ResourceFactory factory) {
+        Controller controller = transformer.getUnderlyingController();
+        Builder builder = controller.makeBuilder();
+        builder.setBaseURI(null);
+        builder.setTiming(false);
+        ReceivingContentHandler rch = new ReceivingContentHandler();
+        rch.setPipelineConfiguration(new PipelineConfiguration(transformer.getConfiguration()));
+        rch.setReceiver(builder);
+        builder.open();
+        try {
+            factory.createSaxResource().runOn(rch);
+            builder.close();
+            return builder.getCurrentRoot();
+        } catch (SAXException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (XPathException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private String join(String s, List<String> errors) {
