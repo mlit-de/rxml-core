@@ -3,6 +3,7 @@ package de.mlit.rxml.xslt;
 
 import de.mlit.rxml.api.ResourceFactory;
 import de.mlit.rxml.api.SaxResource;
+import de.mlit.rxml.api.SourceInfo;
 import de.mlit.rxml.api.helper.AbstractResource;
 import de.mlit.rxml.api.helper.ResourceAdapter;
 import de.mlit.rxml.resolver.RxmlInputSource;
@@ -75,7 +76,7 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
     protected Configuration getConfiguration(List<AbstractSaxonExtension> extensions) {
         Configuration configuration = Configuration.newConfiguration();
         configuration.setConfigurationProperty(FeatureKeys.XSLT_VERSION, "3.0");
-        configuration.setConfigurationProperty(FeatureKeys.XQUERY_VERSION, "3.0");
+        configuration.setConfigurationProperty(FeatureKeys.XQUERY_VERSION, "3.1");
         configuration.setConfigurationProperty(FeatureKeys.TRACE_EXTERNAL_FUNCTIONS, false);
         if (extensions != null) {
             for (AbstractSaxonExtension ext : extensions) {
@@ -153,10 +154,17 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
         }
 
         SAXResult sr = new SAXResult(ch);
+        if(sourceInfo!=null) {
+            sr.setSystemId(sourceInfo.toString());
+        }
         if (ch instanceof LexicalHandler) {
             sr.setLexicalHandler((LexicalHandler) ch);
         }
         trh.setResult(sr);
+        SourceInfo sourceInfo = document.getSourceInfo();
+        if(sourceInfo!=null) {
+            trh.setSystemId(sourceInfo.toString());
+        }
         document.runOn(trh);
 
     }
