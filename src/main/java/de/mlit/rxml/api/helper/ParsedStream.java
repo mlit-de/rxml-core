@@ -3,7 +3,6 @@ package de.mlit.rxml.api.helper;
 import de.mlit.rxml.api.SaxResource;
 import de.mlit.rxml.api.StreamResource;
 import de.mlit.rxml.base.FileResource;
-import org.apache.xerces.xni.parser.XMLEntityResolver;
 import org.xml.sax.*;
 import org.xml.sax.helpers.XMLReaderFactory;
 
