@@ -85,7 +85,11 @@ public class ResourceAdapter {
 
 
     public static ResourceFactory getInput(Map map, String name) {
-        return (ResourceFactory) map.get(name);
+        final Object rf = map.get(name);
+        if(rf==null) {
+            throw new NullPointerException("No such Input "+name);
+        }
+        return (ResourceFactory) rf;
     }
 
     public static RxmlResolver getResolver(Map map) {

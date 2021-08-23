@@ -117,7 +117,9 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
                             ((XPathException) exception).getLocationAsString() + " " +
                                     ((XPathException) exception).getMessage());
                 }
-                errorListener.fatalError(exception);
+                if(errorListener!=null) {
+                    errorListener.fatalError(exception);
+                }
             }
         };
 

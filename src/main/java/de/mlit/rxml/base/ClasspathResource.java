@@ -24,7 +24,11 @@ public class ClasspathResource extends AbstractStreamResource implements StreamR
     @Override
     public InputStream openStream() throws IOException {
         String name2 = this.name.startsWith("/") ? this.name.substring(1) : this.name;
-        return Thread.currentThread().getContextClassLoader().getResourceAsStream(name2);
+        final InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name2);
+        if(inputStream==null) {
+            throw new IOException("Can't find on classpath: "+name2);
+        }
+        return inputStream;
     }
     @Override
     public void writeOn(OutputStream os) throws IOException {
