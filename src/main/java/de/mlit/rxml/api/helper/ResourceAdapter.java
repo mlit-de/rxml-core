@@ -1,14 +1,31 @@
+/*
+ * Copyright (C) 2015-2021 Markus Lauer
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package de.mlit.rxml.api.helper;
 
-import de.mlit.rxml.api.*;
+import de.mlit.rxml.api.ResourceFactory;
+import de.mlit.rxml.api.SaxResource;
+import de.mlit.rxml.api.SourceInfo;
+import de.mlit.rxml.api.StreamResource;
 import de.mlit.rxml.resolver.RxmlResolver;
 import org.xml.sax.EntityResolver;
 
 import java.util.Map;
 
-/**
- * Created by mlauer on 04/03/15.
- */
 public class ResourceAdapter {
 
     public void setSourceInfo(SourceInfo sourceInfo) {
