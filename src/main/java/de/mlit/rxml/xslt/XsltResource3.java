@@ -116,12 +116,14 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
         ErrorListener errorListener1 = new ErrorListener() {
             @Override
             public void warning(TransformerException exception) throws TransformerException {
-                errorListener.warning(exception);
+                if(errorListener!=null)
+                    errorListener.warning(exception);
             }
 
             @Override
             public void error(TransformerException exception) throws TransformerException {
-                errorListener.error(exception);
+                if(errorListener!=null)
+                    errorListener.error(exception);
             }
 
             @Override

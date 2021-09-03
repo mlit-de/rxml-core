@@ -57,7 +57,7 @@ public class XsltResource extends AbstractResource implements SaxResource {
         TransformerFactoryImpl saxonFactory = new TransformerFactoryImpl();
 
         this.factory = saxonFactory;
-        factory.setAttribute(FeatureKeys.XSLT_VERSION, "2.0");
+        factory.setAttribute(FeatureKeys.XSLT_VERSION, "3.0");
         factory.setURIResolver(resolver);
         if(extensions != null) {
             Configuration conf = saxonFactory.getConfiguration();
