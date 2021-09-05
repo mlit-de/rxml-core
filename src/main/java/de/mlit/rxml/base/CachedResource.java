@@ -97,15 +97,8 @@ public class CachedResource extends AbstractStreamResource {
             byte[] buffer = save();
             os.write(buffer);
         } else {
-            byte[] buffer = new byte[4096];
-            InputStream inputStream = openStream(false);
-            try {
-                int n=0;
-                while((n=inputStream.read(buffer))>0) {
-                    os.write(buffer, 0, n);
-                }
-            } finally {
-                inputStream.close();
+            try(InputStream inputStream = openStream(false)) {
+                copyContent(inputStream, os);
             }
             os.flush();
         }

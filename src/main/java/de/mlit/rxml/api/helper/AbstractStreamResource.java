@@ -62,7 +62,7 @@ public abstract class AbstractStreamResource extends AbstractResource implements
     public void writeOn(Writer writer) throws IOException {
         char[] buffer = new char[BUFFER_SIZE];
         Reader reader = openReader();
-        int n = 0;
+        int n      ;
         while ((n = reader.read(buffer)) > 0) {
             writer.write(buffer, 0, n);
         }
@@ -78,5 +78,13 @@ public abstract class AbstractStreamResource extends AbstractResource implements
 
     public String getContentAsString() throws IOException {
         return getContent().toString();
+    }
+
+    public static void copyContent(InputStream inputStream, OutputStream os)  throws IOException {
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int n=0;
+        while((n=inputStream.read(buffer))>0) {
+            os.write(buffer,0,n);
+        }
     }
 }

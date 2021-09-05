@@ -21,16 +21,16 @@ import java.io.*;
 
 public interface StreamResource extends Resource {
 
-    public Reader openReader() throws IOException;
+    Reader openReader() throws IOException;
 
-    public InputStream openStream() throws IOException;
+    InputStream openStream() throws IOException;
 
-    public void writeOn(OutputStream os) throws IOException;
+    void writeOn(OutputStream os) throws IOException;
 
-    public void writeOn(Writer writer) throws IOException;
+    void writeOn(Writer writer) throws IOException;
 
-    public CharSequence getContent() throws IOException;
+    CharSequence getContent() throws IOException;
 
-    public String getContentAsString() throws IOException;
+    String getContentAsString() throws IOException;
 
 }

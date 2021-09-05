@@ -19,8 +19,8 @@ package de.mlit.rxml.api;
 
 public interface ResourceFactory {
 
-    public SaxResource createSaxResource();
+    SaxResource createSaxResource();
 
-    public StreamResource createStreamResource();
+    StreamResource createStreamResource();
 
 }

@@ -20,6 +20,6 @@ package de.mlit.rxml.api;
 
 public interface Resource {
 
-    public SourceInfo getSourceInfo();
+    SourceInfo getSourceInfo();
 
 }

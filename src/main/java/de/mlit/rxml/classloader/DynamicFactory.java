@@ -68,8 +68,9 @@ public class DynamicFactory {
                 sb.append(sep); sep=",";
                 if(arg==null) {
                     sb.append("null");
+                } else {
+                    sb.append(arg.getClass().getName());
                 }
-                sb.append(arg.getClass().getName());
             }
             System.err.println(className+"::<new>("+sb.toString()+")");
             throw ex;

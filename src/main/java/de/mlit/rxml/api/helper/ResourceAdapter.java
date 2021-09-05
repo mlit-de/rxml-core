@@ -28,10 +28,6 @@ import java.util.Map;
 
 public class ResourceAdapter {
 
-    public void setSourceInfo(SourceInfo sourceInfo) {
-
-    }
-
     public static ResourceFactory convert(final SaxResource resource) {
         return new ResourceFactory() {
 

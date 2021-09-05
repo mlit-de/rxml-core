@@ -58,6 +58,7 @@ public class ParsedStream extends AbstractResource implements SaxResource {
             try {
                 inputStream.close();
             } catch (IOException ex) {
+                // fall through
             }
         }
 

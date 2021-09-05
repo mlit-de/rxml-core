@@ -22,7 +22,7 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
 public class ShowClasspath {
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         String file = args[0] + "/.classpath";
         System.err.println("Writing:" + file);
         FileOutputStream fos = new FileOutputStream(file);

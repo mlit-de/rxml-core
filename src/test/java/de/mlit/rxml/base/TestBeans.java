@@ -29,7 +29,7 @@ public class TestBeans {
 
     @Test
     public void test() throws Exception {
-        Map<String,Object> context = new HashMap();
+        Map<String,Object> context = new HashMap<>();
         //context.put("path", "FOO");
         ClasspathResource resource = new ClasspathResource("de/mlit/rxml/base/bean.xml");
 

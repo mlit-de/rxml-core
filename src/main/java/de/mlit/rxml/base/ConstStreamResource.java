@@ -51,7 +51,7 @@ public class ConstStreamResource extends AbstractStreamResource {
     }
 
     @Override
-    public String getContentAsString() throws IOException {
+    public String getContentAsString()  {
         return content;
     }
 }

@@ -60,7 +60,7 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
     protected SaxResource document;
 
     protected Map<String, Object> map;
-    protected RxmlResolver resolver = this.resolver;
+    protected final RxmlResolver resolver;
     protected String mode;
 
     //protected static SAXTransformerFactory factory = (SAXTransformerFactory)TransformerFactory.newInstance();
@@ -75,6 +75,7 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
         this.document = document;
         this.map = map;
         this.mode = mode;
+        this.resolver = resolver;
 
 
         Configuration configuration = getConfiguration(extensions);
@@ -106,7 +107,7 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
     @Override
     public void runOn(ContentHandler ch) throws SAXException, IOException {
 
-        Templates templ = null;
+        Templates templ;
 
 
         XsltCompiler xsltCompiler = processor.newXsltCompiler();
@@ -130,8 +131,8 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
             public void fatalError(TransformerException exception) throws TransformerException {
                 if (exception instanceof XPathException) {
                     errors.add(
-                            ((XPathException) exception).getLocationAsString() + " " +
-                                    ((XPathException) exception).getMessage());
+                            (exception).getLocationAsString() + " " +
+                                    (exception).getMessage());
                 }
                 if(errorListener!=null) {
                     errorListener.fatalError(exception);
@@ -148,7 +149,7 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
         }
 
 
-        TransformerHandler trh = null;
+        TransformerHandler trh;
         try {
             TransformerImpl transformer = (TransformerImpl) templ.newTransformer();
             QName initialMode = transformer.getUnderlyingXsltTransformer().getInitialMode();
@@ -200,11 +201,7 @@ public class XsltResource3 extends AbstractResource implements SaxResource {
             factory.createSaxResource().runOn(rch);
             builder.close();
             return builder.getCurrentRoot();
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (XPathException e) {
+        } catch (SAXException | XPathException | IOException e) {
             throw new RuntimeException(e);
         }
     }

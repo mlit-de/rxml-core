@@ -21,7 +21,7 @@ import net.sf.saxon.Configuration;
 
 public interface AbstractSaxonExtension {
 
-    public void install(Configuration conf);
+    void install(Configuration conf);
 
 
 }

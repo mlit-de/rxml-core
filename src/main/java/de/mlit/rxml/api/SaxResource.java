@@ -24,6 +24,6 @@ import java.io.IOException;
 
 public interface SaxResource extends Resource {
 
-    public void runOn(ContentHandler ch) throws SAXException, IOException;
+    void runOn(ContentHandler ch) throws SAXException, IOException;
 
 }

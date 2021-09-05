@@ -81,7 +81,7 @@ public class SerializedXml extends AbstractStreamResource {
     protected TransformerHandler createTransformerHandler() {
         SAXTransformerFactory factory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
 
-        TransformerHandler th = null;
+        TransformerHandler th;
         try {
             th = factory.newTransformerHandler();
         } catch (TransformerConfigurationException e) {

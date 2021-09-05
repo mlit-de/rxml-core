@@ -49,15 +49,8 @@ public class FileResource extends AbstractStreamResource {
 
     @Override
     public void writeOn(OutputStream os) throws IOException {
-        byte[] buffer = new byte[4096];
-        InputStream inputStream = this.openStream();
-        try {
-            int n=0;
-            while((n=inputStream.read(buffer))>0) {
-                os.write(buffer,0,n);
-            }
-        } finally {
-            inputStream.close();
+        try(InputStream inputStream = this.openStream()) {
+            copyContent(inputStream, os);
         }
         os.flush();
     }
