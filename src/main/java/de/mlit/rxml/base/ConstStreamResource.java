@@ -19,7 +19,9 @@ package de.mlit.rxml.base;
 
 import de.mlit.rxml.api.helper.AbstractStreamResource;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 
 /**
@@ -27,31 +29,42 @@ import java.io.Reader;
  */
 public class ConstStreamResource extends AbstractStreamResource {
 
-    protected String content;
+    protected byte[] content;
 
     public ConstStreamResource(String content) {
-        this.content = content;
+        this(content.getBytes());
     }
+
+    public ConstStreamResource(byte[] content) { this.content = content; }
 
     public ConstStreamResource() {
     }
 
     @Override
     public String getContent() {
+        return new String(content);
+    }
+
+    public byte[] getContentBytes() {
         return content;
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content.getBytes();
     }
 
     @Override
     public Reader openReader() throws IOException {
-        return openReaderFromContent();
+        return openReaderFromInputStream();
     }
 
     @Override
     public String getContentAsString()  {
-        return content;
+        return getContent();
+    }
+
+    @Override
+    public InputStream openStream() throws IOException {
+        return new ByteArrayInputStream(content);
     }
 }
